@@ -13,13 +13,13 @@ def get_coordinates(city, key):
         else:
             return "Город не найден"
     except Exception as e:
-            return f"вОЗНИКЛА ошибка: {e}"
+            return f"ВОЗНИКЛА ошибка: {e}"
 
 
 def show_coordinates(event=None):
     city = entry.get()
     coordinates = get_coordinates(city, key)
-    label.config(text=f"Координаты города {city}: {coordinates}")
+    label.config(text=f"Координаты города {city}:\n {coordinates}")
 
 
 # Пример использования
@@ -29,13 +29,14 @@ key = '8d66793abf364248baa40309ef5fc6b0'
 # Интерфейс
 window = Tk()
 window.title("Координаты городов")
-window.geometry("200x100")
+window.geometry("320x100")
 
 # Элементы интерфейса
 entry = Entry()
 entry.pack()
+entry.bind("<Return>", show_coordinates)
 
-button = Button(text="Поиск координат", command=get_coordinates)
+button = Button(text="Поиск координат", command=show_coordinates)
 button.pack()
 
 label = Label(text="Введите город и нажмите на кнопку")
