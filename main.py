@@ -1,5 +1,6 @@
 from auto_py_to_exe.config import language_hint
 from opencage.geocoder import OpenCageGeocode
+from tkinter import *
 
 def get_coordinates(city, key):
     try:
@@ -15,8 +16,31 @@ def get_coordinates(city, key):
             return f"вОЗНИКЛА ошибка: {e}"
 
 
+def show_coordinates(event=None):
+    city = entry.get()
+    coordinates = get_coordinates(city, key)
+    label.config(text=f"Координаты города {city}: {coordinates}")
+
+
 # Пример использования
 key = '8d66793abf364248baa40309ef5fc6b0'
-city = 'Эквадор'
-coordinates = get_coordinates(city, key)
-print(f"Координаты города {city}: {coordinates}")
+
+
+# Интерфейс
+window = Tk()
+window.title("Координаты городов")
+window.geometry("200x100")
+
+# Элементы интерфейса
+entry = Entry()
+entry.pack()
+
+button = Button(text="Поиск координат", command=get_coordinates)
+button.pack()
+
+label = Label(text="Введите город и нажмите на кнопку")
+label.pack()
+
+window.mainloop()
+
+
